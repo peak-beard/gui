@@ -15,11 +15,11 @@ class SeaofBTCapp(tk.Tk):
 
         self.frames = {}
 
-        frame = StartPage(container, self)
+        for F in (StartPage, PageOne):
 
-        self.frames[StartPage] = frame
-
-        frame.grid(row=0, column=0, sticky="nsew")
+            frame = F(container, self)
+            self.frames[F] = frame
+            frame.grid(row=0, column=0, sticky="nsew")
 
         self.show_frame(StartPage)
 
@@ -34,12 +34,19 @@ class StartPage(tk.Frame):
         label = tk.Label(self, text="Start Page", font=LARGE_FONT)
         label.pack(pady=10, padx=10)
 
-        button1 = tk.Button(self, text="Visit Page 1",
+        button = tk.Button(self, text="Visit Page 1",
                             command=lambda: controller.show_frame(PageOne))
-        button1.pack()
+        button.pack()
 
-class PageOne(tk.Frane):
+class PageOne(tk.Frame):
     def __intit__(self, parent, controller):
         tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text="Start Page", font=LARGE_FONT)
+        label.pack(pady=10, padx=10)
+        button1 = tk.Button(self, text="Back  to Home Page",
+                            command=lambda: controller.show_frame(StartPage))
+        button1.pack()
+
+
 app = SeaofBTCapp()
 app.mainloop()
